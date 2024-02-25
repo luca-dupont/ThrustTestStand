@@ -49,6 +49,23 @@ function sendValSocket() {
   socket.emit("update_chart", {"x" : x, "name" : chart})
 }
 
+function sendStatsSocket() {
+  const tmean = document.getElementById("thrustMean").textContent;
+  const pmean = document.getElementById("powerMean").textContent;
+  const emean = document.getElementById("efficiencyMean").textContent;
+  const rmean = document.getElementById("rpmMean").textContent;
+  const tstd = document.getElementById("thrustStd").textContent;
+  const pstd = document.getElementById("powerStd").textContent;
+  const estd = document.getElementById("efficiencyStd").textContent;
+  const rstd = document.getElementById("rpmStd").textContent;
+
+  const name = document.getElementById("saveName").value;
+
+  socket.emit("stats", {"tmean" : tmean, "pmean" : pmean, "emean" : emean, "rmean" : rmean, "tstd" : tstd, "pstd" : pstd, "estd" : estd, "rstd" : rstd, "name" : name})
+
+  document.getElementById("successMessage").innerHTML = "Saved " + name + " data successfully!";
+}
+
 function getMean(chart) {
   const data = chart.data.datasets[0].data;
   const sum = data.reduce((a,b) => a+b, 0);
@@ -56,6 +73,7 @@ function getMean(chart) {
 
   return Math.round((average + Number.EPSILON) * 100) / 100
 }
+
 function getStd(chart) {
   const data = chart.data.datasets[0].data;
   const sum = data.reduce((a,b) => a+b, 0);
@@ -76,9 +94,33 @@ function getStd(chart) {
   return Math.round((std+Number.EPSILON)*100) / 100
 }
 
+function resetCharts() {
+  thrustChart.data.labels = [0]
+  thrustChart.data.datasets[0].data = [0]
+  rpmChart.data.labels = [0]
+  rpmChart.data.datasets[0].data = [0]
+  efficiencyChart.data.labels = [0]
+  efficiencyChart.data.datasets[0].data = [0]
+  powerUsageChart.data.labels = [0]
+  powerUsageChart.data.datasets[0].data = [0]
+
+  document.getElementById("thrustMean").innerHTML = "Thrust : ";
+  document.getElementById("thrustStd").innerHTML = "Thrust : " ;
+  document.getElementById("powerMean").innerHTML = "Power Usage : ";
+  document.getElementById("powerStd").innerHTML = "Power Usage : " ;
+  document.getElementById("efficiencyMean").innerHTML = "Efficiency : " ;
+  document.getElementById("efficiencyStd").innerHTML = "Efficiency : ";
+  document.getElementById("rpmMean").innerHTML = "RPM : " ;
+  document.getElementById("rpmStd").innerHTML = "RPM : " ;
+
+  thrustChart.update()
+  rpmChart.update()
+  efficiencyChart.update()
+  powerUsageChart.update()
+}
+
 socket.on("chart_data", function (data) {
   const chart = data.name;
-  console.log("Received chart data for:", chart, data);
   
   try {
     if (chart == "Thrust") {
