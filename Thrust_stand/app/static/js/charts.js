@@ -49,26 +49,42 @@ function sendValSocket() {
   socket.emit("update_chart", {"x" : x, "name" : chart})
 }
 
+function getMean(chart) {
+  const data = chart.data.datasets[0].data;
+  const sum = data.reduce((a,b) => a+b, 0);
+  const average = (sum/data.length) || 0 
+
+  return Math.round((average + Number.EPSILON) * 100) / 100
+}
+
 socket.on("chart_data", function (data) {
   const chart = data.name;
   console.log("Received chart data for:", chart, data);
   
   try {
     if (chart == "Thrust") {
+      const mean = getMean(thrustChart)
       thrustChart.data.labels.push(data.label);
       thrustChart.data.datasets[0].data.push(data.value);
+      document.getElementById("thrustMean").innerHTML = "Thrust : " + mean + " N";
       thrustChart.update();
     } else if (chart == "RPM") {
+      const mean = getMean(rpmChart)
       rpmChart.data.labels.push(data.label);
       rpmChart.data.datasets[0].data.push(data.value);
+      document.getElementById("rpmMean").innerHTML = "RPM : " + mean + " rad/s";
       rpmChart.update();
     } else if (chart == "Efficiency") {
+      const mean = getMean(efficiencyChart)
       efficiencyChart.data.labels.push(data.label);
       efficiencyChart.data.datasets[0].data.push(data.value);
+      document.getElementById("efficiencyMean").innerHTML = "Efficiency : " + mean + " N/W";
       efficiencyChart.update();
     } else if (chart == "Power Usage") {
+      const mean = getMean(powerUsageChart)
       powerUsageChart.data.labels.push(data.label);
       powerUsageChart.data.datasets[0].data.push(data.value);
+      document.getElementById("powerMean").innerHTML = "Power Usage : " + mean + " W" ;
       powerUsageChart.update();
     }
   } catch (error) {
@@ -98,6 +114,7 @@ const thrustChart = new Chart("thrustChart", {
       text: "Thrust", // Set the title text
       fontSize: 18, // Optionally set the font size
       fontColor: "#333", // Optionally set the font color
+
     },
   },
 });
