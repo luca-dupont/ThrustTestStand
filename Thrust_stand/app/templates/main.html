@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <title>Thrust test stand</title>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.js"></script>
+  <script src="//cdnjs.cloudflare.com/ajax/libs/socket.io/4.2.0/socket.io.js"></script>
+  <link rel="stylesheet" type="text/css" href="../static/css/main.css">
+</head>
+
+<body>
+  <h1> Thrust test stand </h1>
+
+  <div name="Drop down">
+    <label for="input">Select a chart:</label>
+    <select id="chartName">
+      <option value="Thrust">Thrust</option>
+      <option value="Power Usage">Power Usage</option>
+      <option value="Efficiency">Efficiency</option>
+      <option value="RPM">RPM</option>
+    </select>
+  </div>
+  <button onclick="randChart()" style="display: inline-block;vertical-align: top;margin: 10px;">Randomize Chart</button>
+  <div>
+    <button onclick="sendValSocket()" style="display: inline-block;vertical-align: top;margin: 10px;">Add random
+      values</button>
+  </div>
+
+  <div id="canvasContainer">
+    <canvas id="thrustChart"></canvas>
+    <canvas id="powerUsageChart"></canvas>
+    <canvas id="efficiencyChart"></canvas>
+    <canvas id="rpmChart"></canvas>
+  </div>
+
+  <script src="../static/js/charts.js"></script>
+</body>
+
+</html>
