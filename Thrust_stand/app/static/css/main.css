@@ -40,6 +40,9 @@ body {
     border: none;
     border-radius: 5px;
     cursor: pointer;
+    display: inline-block;
+    vertical-align: top;
+    margin: 10px;
   }
   
   button:hover {
@@ -51,7 +54,6 @@ body {
 
   .content {
     flex: 1;
-    /* margin-right: 10px; Adjust margin as needed */
   }
 
   .stats {
