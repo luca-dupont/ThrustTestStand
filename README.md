@@ -9,7 +9,7 @@
 The following packages are required for this script to work.
 - Flask
 - Flask-SocketIO
-- python-websocket
+- simple-websocket
 - python-socketio
 - python-engineio
 
