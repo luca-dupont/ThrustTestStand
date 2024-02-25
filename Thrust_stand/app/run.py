@@ -3,7 +3,6 @@ from flask_socketio import SocketIO
 from random import random
 from time import sleep
 
-
 app = Flask(
     __name__,
 )
