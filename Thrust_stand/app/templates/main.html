@@ -12,26 +12,40 @@
 <body>
   <h1> Thrust test stand </h1>
 
-  <div name="Drop down">
-    <label for="input">Select a chart:</label>
-    <select id="chartName">
-      <option value="Thrust">Thrust</option>
-      <option value="Power Usage">Power Usage</option>
-      <option value="Efficiency">Efficiency</option>
-      <option value="RPM">RPM</option>
-    </select>
-  </div>
-  <button onclick="randChart()" style="display: inline-block;vertical-align: top;margin: 10px;">Randomize Chart</button>
-  <div>
-    <button onclick="sendValSocket()" style="display: inline-block;vertical-align: top;margin: 10px;">Add random
-      values</button>
-  </div>
+  <div class="container">
+    <div class="content">
+      <div name="Drop down">
+        <label for="input">Select a chart:</label>
+        <select id="chartName">
+          <option value="Thrust">Thrust</option>
+          <option value="Power Usage">Power Usage</option>
+          <option value="Efficiency">Efficiency</option>
+          <option value="RPM">RPM</option>
+        </select>
+      </div>
+      <button onclick="randChart()" style="display: inline-block;vertical-align: top;margin: 10px;">Randomize
+        Chart</button>
+      <div>
+        <button onclick="sendValSocket()" style="display: inline-block;vertical-align: top;margin: 10px;">Add random
+          values</button>
+      </div>
 
-  <div id="canvasContainer">
-    <canvas id="thrustChart"></canvas>
-    <canvas id="powerUsageChart"></canvas>
-    <canvas id="efficiencyChart"></canvas>
-    <canvas id="rpmChart"></canvas>
+      <div id="canvasContainer">
+        <canvas id="thrustChart"></canvas>
+        <canvas id="powerUsageChart"></canvas>
+        <canvas id="efficiencyChart"></canvas>
+        <canvas id="rpmChart"></canvas>
+      </div>
+    </div>
+
+    <div class="stats">
+      <h2 style="text-decoration: underline;">Stats</h2>
+      <h4 style="text-decoration: underline;">Means : </h4>
+      <h5 id="thrustMean">Thrust </h5>
+      <h5 id="powerMean">Power Usage </h5>
+      <h5 id="efficiencyMean">Efficiency </h5>
+      <h5 id="rpmMean">RPM </h5>
+    </div>
   </div>
 
   <script src="../static/js/charts.js"></script>
