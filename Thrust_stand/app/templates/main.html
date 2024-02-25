@@ -15,7 +15,7 @@
   <div class="container">
     <div class="content">
       <div name="Drop down">
-        <label for="input">Select a chart:</label>
+        <label for="chartName">Select a chart:</label>
         <select id="chartName">
           <option value="Thrust">Thrust</option>
           <option value="Power Usage">Power Usage</option>
@@ -23,11 +23,12 @@
           <option value="RPM">RPM</option>
         </select>
       </div>
-      <button onclick="randChart()" style="display: inline-block;vertical-align: top;margin: 10px;">Randomize
+      <button onclick="randChart()">Randomize
         Chart</button>
       <div>
-        <button onclick="sendValSocket()" style="display: inline-block;vertical-align: top;margin: 10px;">Add random
+        <button onclick="sendValSocket()">Add random
           values</button>
+        <button onclick="resetCharts()"> Reset all charts </button>
       </div>
 
       <div id="canvasContainer">
@@ -41,15 +42,18 @@
     <div class="stats">
       <h2 style="text-decoration: underline;">Stats</h2>
       <h4 style="text-decoration: underline;">Means : </h4>
-      <h5 id="thrustMean">Thrust </h5>
-      <h5 id="powerMean">Power Usage </h5>
-      <h5 id="efficiencyMean">Efficiency </h5>
-      <h5 id="rpmMean">RPM </h5>
-      <h4 style="text-decoration: underline;"> Standard Deviations :</h4>
-      <h5 id="thrustStd">Thrust </h5>
-      <h5 id="powerStd">Power Usage </h5>
-      <h5 id="efficiencyStd">Efficiency </h5>
-      <h5 id="rpmStd">RPM </h5>
+      <h5 id="thrustMean" name="tmean">Thrust : </h5>
+      <h5 id="powerMean" name="pmean">Power Usage : </h5>
+      <h5 id="efficiencyMean" name="emean">Efficiency : </h5>
+      <h5 id="rpmMean" name="rmean">RPM : </h5>
+      <h4 style="text-decoration: underline;"> Standard Deviations : </h4>
+      <h5 id="thrustStd" name="tstd">Thrust : </h5>
+      <h5 id="powerStd" name="pstd">Power Usage : </h5>
+      <h5 id="efficiencyStd" name="estd">Efficiency : </h5>
+      <h5 id="rpmStd" name="rstd">RPM : </h5>
+      <input type="text" id="saveName" placeholder="Motor name" style="margin-top: 50px;">
+      <button type="submit" onclick="sendStatsSocket()"> Save as </button>
+      <h6 style="color: grey;" id="successMessage"></h6>
     </div>
   </div>
 
