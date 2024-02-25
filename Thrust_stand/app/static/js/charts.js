@@ -56,6 +56,25 @@ function getMean(chart) {
 
   return Math.round((average + Number.EPSILON) * 100) / 100
 }
+function getStd(chart) {
+  const data = chart.data.datasets[0].data;
+  const sum = data.reduce((a,b) => a+b, 0);
+  const average = (sum/data.length) || 0 
+
+  var squaredDifferences = data.map(function(value) {
+    var difference = value - average;
+    return difference * difference;
+  });
+
+  // Calculate the average of the squared differences
+  var variance = squaredDifferences.reduce(function(sum, value) {
+      return sum + value;
+  }, 0) / data.length;
+
+  std = Math.sqrt(variance);
+  // Return the square root of the variance
+  return Math.round((std+Number.EPSILON)*100) / 100
+}
 
 socket.on("chart_data", function (data) {
   const chart = data.name;
@@ -63,28 +82,36 @@ socket.on("chart_data", function (data) {
   
   try {
     if (chart == "Thrust") {
-      const mean = getMean(thrustChart)
+      const mean = getMean(thrustChart);
+      const std = getStd(thrustChart);
       thrustChart.data.labels.push(data.label);
       thrustChart.data.datasets[0].data.push(data.value);
       document.getElementById("thrustMean").innerHTML = "Thrust : " + mean + " N";
+      document.getElementById("thrustStd").innerHTML = "Thrust : " + std + " N";
       thrustChart.update();
     } else if (chart == "RPM") {
-      const mean = getMean(rpmChart)
+      const mean = getMean(rpmChart);
+      const std = getStd(rpmChart);
       rpmChart.data.labels.push(data.label);
       rpmChart.data.datasets[0].data.push(data.value);
       document.getElementById("rpmMean").innerHTML = "RPM : " + mean + " rad/s";
+      document.getElementById("rpmStd").innerHTML = "RPM : " + std + " rad/s";
       rpmChart.update();
     } else if (chart == "Efficiency") {
-      const mean = getMean(efficiencyChart)
+      const mean = getMean(efficiencyChart);
+      const std = getStd(efficiencyChart);
       efficiencyChart.data.labels.push(data.label);
       efficiencyChart.data.datasets[0].data.push(data.value);
       document.getElementById("efficiencyMean").innerHTML = "Efficiency : " + mean + " N/W";
+      document.getElementById("efficiencyStd").innerHTML = "Efficiency : " + std + " N/W";
       efficiencyChart.update();
     } else if (chart == "Power Usage") {
-      const mean = getMean(powerUsageChart)
+      const mean = getMean(powerUsageChart);
+      const std = getStd(powerUsageChart);
       powerUsageChart.data.labels.push(data.label);
       powerUsageChart.data.datasets[0].data.push(data.value);
       document.getElementById("powerMean").innerHTML = "Power Usage : " + mean + " W" ;
+      document.getElementById("powerStd").innerHTML = "Power usage : " + std + " W";
       powerUsageChart.update();
     }
   } catch (error) {
