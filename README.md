@@ -1,5 +1,5 @@
-# Thrust Stand Visualiser
-> Website to visualise thrust an other data of motors
+# Thrust Stand Visualizer
+> Website to visualize thrust and other data of motors
 
 ## Usage
 1. Install Python packages mentioned in the [requirements.txt](requirements.txt) file to meet the required imports in `run.py`.
