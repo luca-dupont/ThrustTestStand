@@ -14,7 +14,6 @@ body {
     flex-wrap: wrap;
     justify-content: center;
     margin-top: 20px;
-    /* float : right; */
   }
   
   canvas {
@@ -46,4 +45,18 @@ body {
   button:hover {
     background-color: #0056b3;
   }
-  
+  .container {
+    display: flex;
+  }
+
+  .content {
+    flex: 1;
+    /* margin-right: 10px; Adjust margin as needed */
+  }
+
+  .stats {
+    flex: 0 0 200px; /* Fixed width for stats section */
+    background-color: #f0f0f0;
+    padding: 20px;
+    margin-right: 50px;
+  }
